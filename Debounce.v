@@ -15,3 +15,29 @@ output led
    
     
 endmodule
+
+module slow_Clock_4Hz(
+input clk_in, // input clock of the board
+output reg clk_out // 4Hz slow clock
+    );
+    
+    reg[25:0] count=0;
+    //reg clk_out;
+    
+    always @(posedge clk_in)
+    begin
+    count<=count+1;
+    if(count==12_500_000)
+    begin
+    count<=0;
+    clk_out<=~clk_out;
+    end
+    end
+endmodule
+
+module D_FF(
+input clk,// input clock, slow clock
+input D, // pushbutton
+output reg Q,
+output reg Qbar
+    );
